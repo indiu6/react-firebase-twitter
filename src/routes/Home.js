@@ -1,9 +1,11 @@
+import Tweet from 'components/Tweet';
 import React, { useEffect, useState } from 'react';
 import { dbService } from '../myFirebase';
 
-const Home = ({ userObj }) => {
+const Home = ({ loggedInUser }) => {
   const [tweet, setTweet] = useState('');
   const [tweets, setTweets] = useState([]);
+  const [attachment, setAttachment] = useState();
 
   useEffect(() => {
     dbService.collection('tweets').onSnapshot((snapshot) => {
@@ -20,7 +22,7 @@ const Home = ({ userObj }) => {
     await dbService.collection('tweets').add({
       text: tweet,
       createdAt: Date.now(),
-      creatorId: userObj.uid,
+      creatorId: loggedInUser.uid,
     });
     setTweet('');
   };
@@ -30,6 +32,27 @@ const Home = ({ userObj }) => {
       target: { value },
     } = event;
     setTweet(value);
+  };
+
+  const onFileChange = (event) => {
+    const {
+      target: { files },
+    } = event;
+    const aFile = files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(aFile);
+    reader.onloadend = (finishedEvent) => {
+      const {
+        currentTarget: { result },
+      } = finishedEvent;
+      setAttachment(result);
+    };
+  };
+
+  const onClearAttachment = () => {
+    setAttachment(null);
+    let fileElement = document.getElementById('fileId');
+    fileElement.value = null;
   };
 
   return (
@@ -42,13 +65,32 @@ const Home = ({ userObj }) => {
           placeholder="What's on your mind?"
           maxLength={120}
         />
-        <button type="submit">Tweet</button>
+        <input
+          type="file"
+          accept="image/*"
+          id="fileId"
+          onChange={onFileChange}
+        />
+        <input type="submit" value="Tweet" />
+        {attachment && (
+          <div>
+            <img
+              src={attachment}
+              alt="attached pic"
+              width="50px"
+              height="50px"
+            />
+            <button onClick={onClearAttachment}>Clear</button>
+          </div>
+        )}
       </form>
       <div>
         {tweets.map((tweet) => (
-          <div key={tweet.id}>
-            <h4>{tweet.text}</h4>
-          </div>
+          <Tweet
+            key={tweet.id}
+            tweetObj={tweet}
+            isOwner={tweet.creatorId === loggedInUser.uid}
+          />
         ))}
       </div>
     </div>

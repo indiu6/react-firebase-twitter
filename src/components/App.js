@@ -4,16 +4,17 @@ import { authService } from 'myFirebase';
 
 function App() {
   const [init, setInit] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userObj, setUserObj] = useState(false);
 
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
-        setIsLoggedIn(true);
+        // setIsLoggedIn(true);
         setUserObj(user);
       } else {
-        setIsLoggedIn(false);
+        // setIsLoggedIn(false);
+        setUserObj(null);
       }
       setInit(true);
     });
@@ -22,11 +23,11 @@ function App() {
   return (
     <>
       {init ? (
-        <AppRouter isLoggedIn={isLoggedIn} userObj={userObj} />
+        <AppRouter isLoggedIn={Boolean(userObj)} userObj={userObj} />
       ) : (
         'Initializing...'
       )}
-      <footer>&copy; {new Date().getFullYear()} Sean</footer>
+      {/* <footer>&copy; {new Date().getFullYear()} Sean</footer> */}
     </>
   );
 }
