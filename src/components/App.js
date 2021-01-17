@@ -1,12 +1,31 @@
-import React, { useState } from 'react';
-import AppRouter from './Router';
+import React, { useState, useEffect } from 'react';
+import AppRouter from 'components/Router';
+import { authService } from 'myFirebase';
 
 function App() {
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [init, setInit] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userObj, setUserObj] = useState(false);
+
+  useEffect(() => {
+    authService.onAuthStateChanged((user) => {
+      if (user) {
+        setIsLoggedIn(true);
+        setUserObj(user);
+      } else {
+        setIsLoggedIn(false);
+      }
+      setInit(true);
+    });
+  }, []);
 
   return (
     <>
-      <AppRouter isLoggedIn={isLoggedIn} />
+      {init ? (
+        <AppRouter isLoggedIn={isLoggedIn} userObj={userObj} />
+      ) : (
+        'Initializing...'
+      )}
       <footer>&copy; {new Date().getFullYear()} Sean</footer>
     </>
   );
