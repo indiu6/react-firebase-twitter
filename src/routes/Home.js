@@ -1,30 +1,47 @@
 import Tweet from 'components/Tweet';
 import React, { useEffect, useState } from 'react';
-import { dbService } from '../myFirebase';
+import { dbService, storageService } from '../myFirebase';
+import { v4 as uuidv4 } from 'uuid';
 
 const Home = ({ loggedInUser }) => {
   const [tweet, setTweet] = useState('');
   const [tweets, setTweets] = useState([]);
-  const [attachment, setAttachment] = useState();
+  const [attachment, setAttachment] = useState('');
 
   useEffect(() => {
-    dbService.collection('tweets').onSnapshot((snapshot) => {
-      const tweetArray = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setTweets(tweetArray);
-    });
+    dbService
+      .collection('tweets')
+      .orderBy('createdAt', 'desc')
+      .onSnapshot((snapshot) => {
+        const tweetArray = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setTweets(tweetArray);
+      });
   }, []);
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    await dbService.collection('tweets').add({
+    let attachmentUrl = '';
+    if (attachment !== '') {
+      const attachmentRef = storageService
+        .ref()
+        .child(`${loggedInUser.uid}/${uuidv4()}`);
+      const response = await attachmentRef.putString(attachment, 'data_url');
+      attachmentUrl = await response.ref.getDownloadURL();
+    }
+
+    const tweetObj = {
       text: tweet,
       createdAt: Date.now(),
       creatorId: loggedInUser.uid,
-    });
+      attachmentUrl,
+    };
+
+    await dbService.collection('tweets').add(tweetObj);
     setTweet('');
+    setAttachment('');
   };
 
   const onChange = (event) => {
@@ -50,7 +67,7 @@ const Home = ({ loggedInUser }) => {
   };
 
   const onClearAttachment = () => {
-    setAttachment(null);
+    setAttachment('');
     let fileElement = document.getElementById('fileId');
     fileElement.value = null;
   };

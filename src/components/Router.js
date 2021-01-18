@@ -5,7 +5,6 @@ import Auth from '../routes/Auth';
 import Home from '../routes/Home';
 import Navigation from './Navigation';
 
-//todo Why ({ isLoggedIn, userObj }), not (isLoggedIn, userObj)
 const AppRouter = ({ isLoggedIn, userObj }) => {
   return (
     <Router>
