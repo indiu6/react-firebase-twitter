@@ -6,7 +6,7 @@ As this project has little bit more functions than before other toy projects,
 
 first implement all funtionalities to operate properly.
 
-Then clean up, and refactor the code.
+Then clean up, and refactor the code => Make sure one component do one thing.
 
 Then apply styling to components.
 
