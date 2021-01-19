@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { dbService, storageService } from '../myFirebase';
 import { v4 as uuidv4 } from 'uuid';
 
-const Home = ({ loggedInUser }) => {
+const Home = ({ userObj }) => {
   const [tweet, setTweet] = useState('');
   const [tweets, setTweets] = useState([]);
   const [attachment, setAttachment] = useState('');
@@ -27,7 +27,7 @@ const Home = ({ loggedInUser }) => {
     if (attachment !== '') {
       const attachmentRef = storageService
         .ref()
-        .child(`${loggedInUser.uid}/${uuidv4()}`);
+        .child(`${userObj.uid}/${uuidv4()}`);
       const response = await attachmentRef.putString(attachment, 'data_url');
       attachmentUrl = await response.ref.getDownloadURL();
     }
@@ -35,7 +35,7 @@ const Home = ({ loggedInUser }) => {
     const tweetObj = {
       text: tweet,
       createdAt: Date.now(),
-      creatorId: loggedInUser.uid,
+      creatorId: userObj.uid,
       attachmentUrl,
     };
 
@@ -106,7 +106,7 @@ const Home = ({ loggedInUser }) => {
           <Tweet
             key={tweet.id}
             tweetObj={tweet}
-            isOwner={tweet.creatorId === loggedInUser.uid}
+            isOwner={tweet.creatorId === userObj.uid}
           />
         ))}
       </div>
