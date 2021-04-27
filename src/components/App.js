@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import AppRouter from 'components/Router';
 import { authService } from 'myFirebase';
 
-import { Amplify, API, Auth, Storage } from 'aws-amplify';
-const awsExports = require('@/aws-exports').default;
+// import { Amplify, API, Auth, Storage } from 'aws-amplify';
+// const awsExports = require('@/aws-exports').default;
 
-Amplify.register(API);
-Amplify.register(Storage);
-Amplify.register(Auth);
-/* Register the services before configure */
-Amplify.configure(awsExports);
+// Amplify.register(API);
+// Amplify.register(Storage);
+// Amplify.register(Auth);
+// /* Register the services before configure */
+// Amplify.configure(awsExports);
 
 const App = () => {
   const [init, setInit] = useState(false);
