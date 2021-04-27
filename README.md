@@ -1,5 +1,7 @@
 # react-firebase-twitter
 
+#### Deployed by AWS Amplify and R53
+
 Design items by [@fortawesome](https://www.npmjs.com/package/@fortawesome/fontawesome-free)
 
 ## Coding Practice to remember.
