@@ -27,7 +27,6 @@
     "build": "react-scripts build",
     "test": "jest",
     "eject": "react-scripts eject",
-    "deploy": "gh-pages -d build",
     "predeploy": "yarn run build"
   },
   "eslintConfig": {
