@@ -31,6 +31,7 @@ const Tweet = ({ tweetObj, isOwner }) => {
     const {
       target: { value },
     } = event;
+
     setNewTweet(value);
   };
 
@@ -64,6 +65,7 @@ const Tweet = ({ tweetObj, isOwner }) => {
           {tweetObj.attachmentUrl && (
             <img src={tweetObj.attachmentUrl} alt="attached pic" />
           )}
+
           {isOwner && (
             <div class="nweet__actions">
               <span onClick={onDeleteClick}>

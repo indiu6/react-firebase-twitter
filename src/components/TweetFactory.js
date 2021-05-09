@@ -9,11 +9,9 @@ const TweetFactory = ({ userObj }) => {
   const [attachment, setAttachment] = useState('');
 
   const onSubmit = async (event) => {
-    if (tweet === '') {
-      return;
-    }
-
+    if (tweet === '') return;
     event.preventDefault();
+
     let attachmentUrl = '';
     if (attachment !== '') {
       const attachmentRef = storageService
@@ -46,9 +44,11 @@ const TweetFactory = ({ userObj }) => {
     const {
       target: { files },
     } = event;
+
     const aFile = files[0];
     const reader = new FileReader();
     reader.readAsDataURL(aFile);
+
     reader.onloadend = (finishedEvent) => {
       const {
         currentTarget: { result },
@@ -59,7 +59,7 @@ const TweetFactory = ({ userObj }) => {
 
   const onClearAttachment = () => {
     setAttachment('');
-    let fileElement = document.getElementById('fileId');
+    let fileElement = document.getElementById('attachFile');
     fileElement.value = null;
   };
 
@@ -75,10 +75,11 @@ const TweetFactory = ({ userObj }) => {
             placeholder="What's on your mind?"
             maxLength={120}
           />
+
           <input type="submit" value="&rarr;" className="factoryInput__arrow" />
         </div>
 
-        <label for="attach-file" className="factoryInput__label">
+        <label for="attachFile" className="factoryInput__label">
           <span>Add photos</span>
           <FontAwesomeIcon icon={faPlus} />
         </label>
@@ -86,12 +87,13 @@ const TweetFactory = ({ userObj }) => {
         <input
           type="file"
           accept="image/*"
-          id="attach-file"
+          id="attachFile"
           onChange={onFileChange}
           style={{
             opacity: 0,
           }}
         />
+
         {attachment && (
           <div className="factoryForm__attachment">
             <img
@@ -101,6 +103,7 @@ const TweetFactory = ({ userObj }) => {
                 backgroundImage: attachment,
               }}
             />
+
             <div className="factoryForm__clear" onClick={onClearAttachment}>
               <span>Remove</span>
               <FontAwesomeIcon icon={faTimes} />
