@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/react-twitter-firebase/static/css/main.ffbe1a13.chunk.css",
-    "main.js": "/react-twitter-firebase/static/js/main.a6d0da36.chunk.js",
-    "main.js.map": "/react-twitter-firebase/static/js/main.a6d0da36.chunk.js.map",
+    "main.js": "/react-twitter-firebase/static/js/main.4b73be41.chunk.js",
+    "main.js.map": "/react-twitter-firebase/static/js/main.4b73be41.chunk.js.map",
     "runtime-main.js": "/react-twitter-firebase/static/js/runtime-main.cbd42525.js",
     "runtime-main.js.map": "/react-twitter-firebase/static/js/runtime-main.cbd42525.js.map",
     "static/js/2.a419584b.chunk.js": "/react-twitter-firebase/static/js/2.a419584b.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.cbd42525.js",
     "static/js/2.a419584b.chunk.js",
     "static/css/main.ffbe1a13.chunk.css",
-    "static/js/main.a6d0da36.chunk.js"
+    "static/js/main.4b73be41.chunk.js"
   ]
 }
