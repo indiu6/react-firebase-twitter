@@ -12,11 +12,9 @@ built with React, Firebase
 - NoSQL Database: [Firebase Firestore](https://firebase.google.com/docs/firestore)
   > Create, Read, Update, Delete Tweets
 
-## Coding Practice to remember.
+## Coding Practice to Remember
 
-As this project has little bit more functions than before other toy projects,
-
-first implement all funtionalities to operate properly.
+First implement all funtionalities to operate properly.
 
 Then clean up, and refactor the code => Make sure one component do one thing.
 
